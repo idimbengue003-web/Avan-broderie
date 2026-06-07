@@ -6,7 +6,7 @@ import { Menu, Search, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet'
 
-const WHATSAPP_NUMBER = '2250712345678'
+const WHATSAPP_NUMBER = '221771234567'
 
 const navLinks = [
   { label: 'Accueil', href: '#accueil' },

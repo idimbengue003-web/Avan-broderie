@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 import { Facebook, Instagram, MapPin, Phone, Mail, MessageCircle } from 'lucide-react'
 
-const WHATSAPP_NUMBER = '2250712345678'
+const WHATSAPP_NUMBER = '221771234567'
 
 const footerLinks = {
   collections: [
@@ -59,11 +59,11 @@ export default function Footer() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm text-white/50">
                 <MapPin className="size-4 text-[#D4A843] flex-shrink-0" />
-                <span>Cocody Riviera, Abidjan, Côte d&apos;Ivoire</span>
+                <span>HLM, Dakar, Sénégal</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-white/50">
                 <Phone className="size-4 text-[#D4A843] flex-shrink-0" />
-                <span>+225 07 12 34 56 78</span>
+                <span>+221 77 123 45 67</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-white/50">
                 <Mail className="size-4 text-[#D4A843] flex-shrink-0" />

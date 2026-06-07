@@ -22,7 +22,7 @@ import {
   HeadphonesIcon,
 } from 'lucide-react'
 
-const WHATSAPP_NUMBER = '2250712345678'
+const WHATSAPP_NUMBER = '221771234567'
 
 export interface Product {
   id: number

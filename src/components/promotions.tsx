@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { ChevronLeft, ChevronRight, Clock, Zap, MessageCircle } from 'lucide-react'
 
-const WHATSAPP_NUMBER = '2250712345678'
+const WHATSAPP_NUMBER = '221771234567'
 
 const promos = [
   {

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Avan Broderie - L'Art de la Broderie Africaine",
   description: "Découvrez nos collections uniques de vêtements brodés et tissus d'exception. Broderie africaine moderne, tissus traditionnels et accessoires élégants.",
-  keywords: ["Avan Broderie", "broderie africaine", "tissus", "robes brodées", "mode homme", "accessoires", "Côte d'Ivoire", "Afrique"],
+  keywords: ["Avan Broderie", "broderie africaine", "tissus", "robes brodées", "mode homme", "accessoires", "Sénégal", "Dakar", "HLM", "Afrique"],
   authors: [{ name: "Avan Broderie" }],
   icons: {
     icon: "/logo-boutique.png",

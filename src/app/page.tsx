@@ -11,7 +11,7 @@ import Newsletter from '@/components/newsletter'
 import Footer from '@/components/footer'
 import { MessageCircle } from 'lucide-react'
 
-const WHATSAPP_NUMBER = '2250712345678'
+const WHATSAPP_NUMBER = '221771234567'
 const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Bonjour, je suis intéressé(e) par vos produits. Pouvez-vous m\'aider ?')}`
 
 export default function Home() {
