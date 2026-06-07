@@ -14,16 +14,15 @@ import {
 import { Separator } from '@/components/ui/separator'
 import {
   Eye,
-  Heart,
-  ShoppingBag,
   Star,
-  Minus,
-  Plus,
   Check,
+  MessageCircle,
   Truck,
-  RefreshCw,
   Shield,
+  HeadphonesIcon,
 } from 'lucide-react'
+
+const WHATSAPP_NUMBER = '2250712345678'
 
 export interface Product {
   id: number
@@ -181,15 +180,24 @@ export const products: Product[] = [
   },
 ]
 
+function getWhatsAppLink(product: Product, selectedSize?: string | null, selectedColor?: string | null) {
+  const sizeText = selectedSize ? `\n📏 Taille : ${selectedSize}` : ''
+  const colorText = selectedColor ? `\n🎨 Couleur : ${selectedColor}` : ''
+  const priceText = product.originalPrice
+    ? `${product.price.toLocaleString('fr-FR')} FCFA (au lieu de ${product.originalPrice.toLocaleString('fr-FR')} FCFA)`
+    : `${product.price.toLocaleString('fr-FR')} FCFA`
+
+  const message = `Bonjour ! Je suis intéressé(e) par ce produit :\n\n🛍️ ${product.name}\n💰 Prix : ${priceText}${sizeText}${colorText}\n\nPouvez-vous me donner plus d'informations ?`
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+}
+
 function ProductCard({ product, onClick }: { product: Product; onClick: () => void }) {
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0
 
   return (
-    <div
-      className="group"
-    >
+    <div className="group">
       <div className="bg-white rounded-2xl overflow-hidden border border-[#E8DCC8] shadow-sm hover:shadow-lg transition-all duration-300">
         {/* Image */}
         <div className="relative aspect-[3/4] overflow-hidden cursor-pointer" onClick={onClick}>
@@ -222,14 +230,9 @@ function ProductCard({ product, onClick }: { product: Product; onClick: () => vo
               className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 bg-white/95 hover:bg-white text-[#5C3D2E] shadow-lg rounded-full px-6"
             >
               <Eye className="size-4 mr-2" />
-              Aperçu rapide
+              Voir les détails
             </Button>
           </div>
-
-          {/* Wishlist button */}
-          <button className="absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors opacity-0 group-hover:opacity-100 duration-300">
-            <Heart className="size-4 text-[#5C3D2E]" />
-          </button>
         </div>
 
         {/* Info */}
@@ -254,7 +257,7 @@ function ProductCard({ product, onClick }: { product: Product; onClick: () => vo
           </div>
 
           {/* Price */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mb-3">
             <span className="text-lg font-bold text-[#B8860B]">
               {product.price.toLocaleString('fr-FR')} FCFA
             </span>
@@ -264,6 +267,17 @@ function ProductCard({ product, onClick }: { product: Product; onClick: () => vo
               </span>
             )}
           </div>
+
+          {/* WhatsApp Button on card */}
+          <a
+            href={getWhatsAppLink(product)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold py-2.5 rounded-xl text-sm transition-colors"
+          >
+            <MessageCircle className="size-4" />
+            Commander
+          </a>
         </div>
       </div>
     </div>
@@ -281,7 +295,6 @@ function ProductDialog({
 }) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
   const [selectedColor, setSelectedColor] = useState<string | null>(null)
-  const [quantity, setQuantity] = useState(1)
 
   if (!product) return null
 
@@ -289,11 +302,9 @@ function ProductDialog({
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0
 
-  const handleAddToCart = () => {
-    // Reset after add
+  const handleClose = () => {
     setSelectedSize(null)
     setSelectedColor(null)
-    setQuantity(1)
     onOpenChange(false)
   }
 
@@ -368,7 +379,7 @@ function ProductDialog({
             <div className="flex items-center gap-2 mb-4">
               <div className={`size-2 rounded-full ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`} />
               <span className={`text-sm font-medium ${product.inStock ? 'text-green-700' : 'text-red-700'}`}>
-                {product.inStock ? 'En stock' : 'Rupture de stock'}
+                {product.inStock ? 'Disponible' : 'Rupture de stock'}
               </span>
             </div>
 
@@ -402,9 +413,9 @@ function ProductDialog({
             </div>
 
             {/* Color Selector */}
-            <div className="mb-5">
+            <div className="mb-6">
               <label className="text-sm font-semibold text-[#2C1810] mb-2 block">
-                Couleur: <span className="font-normal text-[#8B7355]">{selectedColor || 'Choisir'}</span>
+                Couleur : <span className="font-normal text-[#8B7355]">{selectedColor || 'Choisir'}</span>
               </label>
               <div className="flex gap-3">
                 {product.colors.map((color) => (
@@ -427,39 +438,19 @@ function ProductDialog({
               </div>
             </div>
 
-            {/* Quantity */}
-            <div className="mb-6">
-              <label className="text-sm font-semibold text-[#2C1810] mb-2 block">
-                Quantité
-              </label>
-              <div className="flex items-center gap-1 w-fit rounded-lg border border-[#E8DCC8]">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="p-2 hover:bg-[#F5EDE0] rounded-l-lg transition-colors"
-                >
-                  <Minus className="size-4 text-[#5C3D2E]" />
-                </button>
-                <span className="px-4 py-2 text-sm font-medium text-[#2C1810] min-w-[40px] text-center">
-                  {quantity}
-                </span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="p-2 hover:bg-[#F5EDE0] rounded-r-lg transition-colors"
-                >
-                  <Plus className="size-4 text-[#5C3D2E]" />
-                </button>
-              </div>
-            </div>
-
-            {/* Add to Cart */}
-            <Button
-              onClick={handleAddToCart}
-              className="w-full bg-[#B8860B] hover:bg-[#8B6508] text-white font-semibold h-12 text-base rounded-xl"
-              disabled={!product.inStock}
+            {/* WhatsApp CTA */}
+            <a
+              href={getWhatsAppLink(product, selectedSize, selectedColor)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold h-12 text-base rounded-xl transition-colors shadow-md"
             >
-              <ShoppingBag className="size-5 mr-2" />
-              Ajouter au panier
-            </Button>
+              <MessageCircle className="size-5" />
+              Commander via WhatsApp
+            </a>
+            <p className="text-center text-xs text-[#8B7355] mt-2">
+              Choisissez votre taille et couleur, puis contactez-nous sur WhatsApp
+            </p>
 
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-2 mt-5">
@@ -468,12 +459,12 @@ function ProductDialog({
                 <span className="text-[10px] text-[#8B7355]">Livraison rapide</span>
               </div>
               <div className="flex flex-col items-center text-center gap-1 p-2">
-                <RefreshCw className="size-4 text-[#B8860B]" />
-                <span className="text-[10px] text-[#8B7355]">Retour 30 jours</span>
-              </div>
-              <div className="flex flex-col items-center text-center gap-1 p-2">
                 <Shield className="size-4 text-[#B8860B]" />
                 <span className="text-[10px] text-[#8B7355]">Paiement sécurisé</span>
+              </div>
+              <div className="flex flex-col items-center text-center gap-1 p-2">
+                <HeadphonesIcon className="size-4 text-[#B8860B]" />
+                <span className="text-[10px] text-[#8B7355]">Support 24/7</span>
               </div>
             </div>
           </div>
@@ -496,22 +487,18 @@ export default function FeaturedProducts() {
     <section className="py-16 sm:py-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-[#2C1810] mb-3">
             Produits <span className="text-[#B8860B]">Vedettes</span>
           </h2>
           <p className="text-[#8B7355] max-w-xl mx-auto">
-            Nos pièces les plus prisées, sélectionnées pour leur qualité et leur style unique.
+            Nos pièces les plus prisées, sélectionnées pour leur qualité et leur style unique. Contactez-nous directement sur WhatsApp pour commander.
           </p>
           <div className="w-20 h-1 bg-[#B8860B] rounded-full mx-auto mt-4" />
         </div>
 
         {/* Products Grid */}
-        <div
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
-        >
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {products.map((product) => (
             <ProductCard
               key={product.id}

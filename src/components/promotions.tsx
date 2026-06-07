@@ -1,11 +1,12 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ArrowRight, ChevronLeft, ChevronRight, Clock, Zap } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Clock, Zap, MessageCircle } from 'lucide-react'
+
+const WHATSAPP_NUMBER = '2250712345678'
 
 const promos = [
   {
@@ -15,6 +16,7 @@ const promos = [
     discount: 30,
     image: '/collection-tissus.png',
     tag: 'Limité',
+    productName: 'Soldes d\'Été - Tissus Africains',
   },
   {
     id: 2,
@@ -23,6 +25,7 @@ const promos = [
     discount: 15,
     image: '/collection-robes.png',
     tag: 'Exclusif',
+    productName: 'Nouvelle Collection Printemps-Été',
   },
   {
     id: 3,
@@ -31,6 +34,7 @@ const promos = [
     discount: 20,
     image: '/collection-enfants.png',
     tag: 'Spécial',
+    productName: 'Pack Famille - Promo 3 articles',
   },
 ]
 
@@ -50,25 +54,21 @@ export default function Promotions() {
     return () => clearInterval(timer)
   }, [next])
 
+  const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Bonjour ! Je suis intéressé(e) par l'offre : ${promos[current].productName}. Pouvez-vous m'en dire plus ?`)}`
+
   return (
     <section id="promotions" className="py-16 sm:py-20 bg-[#F5EDE0]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-[#2C1810] mb-3">
             Annonces & <span className="text-[#B8860B]">Promotions</span>
           </h2>
           <p className="text-[#8B7355] max-w-xl mx-auto">
-            Des offres exceptionnelles sur nos plus belles pièces. Ne ratez pas nos promotions limitées !
+            Des offres exceptionnelles sur nos plus belles pièces. Contactez-nous sur WhatsApp pour en profiter !
           </p>
           <div className="w-20 h-1 bg-[#B8860B] rounded-full mx-auto mt-4" />
-        </motion.div>
+        </div>
 
         {/* Carousel */}
         <div className="relative">
@@ -114,10 +114,15 @@ export default function Promotions() {
                     {promos[current].description}
                   </p>
 
-                  <Button className="w-fit bg-[#B8860B] hover:bg-[#8B6508] text-white font-semibold px-8 rounded-xl">
-                    En profiter
-                    <ArrowRight className="size-4 ml-2" />
-                  </Button>
+                  <a
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 w-fit bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold px-8 h-12 rounded-xl transition-colors shadow-md"
+                  >
+                    <MessageCircle className="size-5" />
+                    En profiter via WhatsApp
+                  </a>
                 </div>
               </motion.div>
             </AnimatePresence>

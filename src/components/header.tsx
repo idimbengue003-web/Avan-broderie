@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Menu, ShoppingBag, X, Search } from 'lucide-react'
+import { Menu, Search, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet'
-import { Badge } from '@/components/ui/badge'
+
+const WHATSAPP_NUMBER = '2250712345678'
 
 const navLinks = [
   { label: 'Accueil', href: '#accueil' },
@@ -17,7 +18,6 @@ const navLinks = [
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [cartCount] = useState(3)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +26,8 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Bonjour, je suis intéressé(e) par vos produits. Pouvez-vous m\'aider ?')}`
 
   return (
     <header
@@ -69,14 +71,16 @@ export default function Header() {
             <Search className="size-5" />
           </Button>
 
-          <Button variant="ghost" size="icon" className="relative text-[#5C3D2E] hover:text-[#B8860B]">
-            <ShoppingBag className="size-5" />
-            {cartCount > 0 && (
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-[10px] bg-[#B8860B] text-white border-0">
-                {cartCount}
-              </Badge>
-            )}
-          </Button>
+          {/* WhatsApp Button */}
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe57] text-white font-medium px-4 py-2 rounded-full text-sm transition-colors shadow-sm"
+          >
+            <MessageCircle className="size-4" />
+            WhatsApp
+          </a>
 
           {/* Mobile Menu */}
           <Sheet>
@@ -111,10 +115,15 @@ export default function Header() {
                 ))}
               </nav>
               <div className="mt-auto px-4 pb-6">
-                <Button className="w-full bg-[#B8860B] hover:bg-[#8B6508] text-white">
-                  <ShoppingBag className="size-4 mr-2" />
-                  Mon Panier ({cartCount})
-                </Button>
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold h-12 rounded-xl w-full transition-colors"
+                >
+                  <MessageCircle className="size-5" />
+                  Nous contacter sur WhatsApp
+                </a>
               </div>
             </SheetContent>
           </Sheet>

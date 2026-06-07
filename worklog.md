@@ -29,3 +29,27 @@ Stage Summary:
 - All text in French as requested
 - Warm gold/amber color palette (no blue/indigo)
 - Responsive design for mobile and desktop
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Transformer le site en catalogue avec un seul vendeur (Admin) et boutons WhatsApp
+
+Work Log:
+- Supprimé le panier (ShoppingBag, cart count, bouton "Mon Panier") du header
+- Ajouté bouton WhatsApp vert dans le header desktop et menu mobile
+- Remplacé "Ajouter au panier" par "Commander via WhatsApp" dans le dialog produit
+- Supprimé le sélecteur de quantité du dialog (inutile pour un catalogue)
+- Ajouté bouton "Commander" (WhatsApp) directement sur chaque carte produit
+- Remplacé "En profiter" par "En profiter via WhatsApp" dans les promotions
+- Ajouté bouton WhatsApp flottant en bas à droite de la page ("Besoin d'aide ?")
+- Ajouté bouton WhatsApp dans le footer avec les réseaux sociaux
+- Message WhatsApp pré-rempli avec les détails du produit (nom, prix, taille, couleur)
+- Mis à jour le texte du site pour refléter le catalogue (au lieu de boutique e-commerce)
+- Vérifié avec Agent Browser : dialog, boutons WhatsApp, responsive
+
+Stage Summary:
+- Site transformé en catalogue avec un seul vendeur (Admin)
+- Bouton WhatsApp présent sur : chaque carte produit, chaque dialog produit, promotions, header, footer, bouton flottant
+- Numéro WhatsApp centralisé : 2250712345678 (à personnaliser)
+- Messages WhatsApp pré-remplillis avec les détails du produit sélectionné

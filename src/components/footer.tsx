@@ -2,7 +2,9 @@
 
 import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
-import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react'
+import { Facebook, Instagram, MapPin, Phone, Mail, MessageCircle } from 'lucide-react'
+
+const WHATSAPP_NUMBER = '2250712345678'
 
 const footerLinks = {
   collections: [
@@ -12,29 +14,24 @@ const footerLinks = {
     { label: 'Mode Enfant', href: '#collections' },
     { label: 'Accessoires', href: '#collections' },
   ],
-  service: [
-    { label: 'Suivi de commande', href: '#' },
-    { label: 'Livraison & Retours', href: '#' },
+  informations: [
     { label: 'Guide des tailles', href: '#' },
+    { label: 'Entretien des tissus', href: '#' },
+    { label: 'Livraison', href: '#' },
     { label: 'FAQ', href: '#' },
-    { label: 'Contactez-nous', href: '#contact' },
+    { label: 'Conditions générales', href: '#' },
   ],
   about: [
     { label: 'Notre histoire', href: '#' },
     { label: 'Nos artisans', href: '#' },
     { label: 'Engagement éthique', href: '#' },
-    { label: 'Carrières', href: '#' },
     { label: 'Presse', href: '#' },
   ],
 }
 
-const socialLinks = [
-  { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
-]
-
 export default function Footer() {
+  const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Bonjour, je souhaite avoir des informations sur vos produits.')}`
+
   return (
     <footer id="contact" className="bg-[#1A1209] text-white/80">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-8">
@@ -54,8 +51,8 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-sm">
-              Votre destination mode pour l&apos;élégance africaine moderne. Des vêtements et tissus 
-              d&apos;exception alliant tradition et contemporanéité depuis 2015.
+              Votre catalogue mode pour l&apos;élégance africaine moderne. Des vêtements et tissus 
+              d&apos;exception alliant tradition et contemporanéité. Contactez-nous directement sur WhatsApp pour commander.
             </p>
 
             {/* Contact info */}
@@ -73,6 +70,17 @@ export default function Footer() {
                 <span>contact@maison-elegance.com</span>
               </div>
             </div>
+
+            {/* WhatsApp CTA in footer */}
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-4 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors"
+            >
+              <MessageCircle className="size-4" />
+              Nous contacter sur WhatsApp
+            </a>
           </div>
 
           {/* Collections */}
@@ -92,11 +100,11 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Service Client */}
+          {/* Informations */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Service Client</h4>
+            <h4 className="text-white font-semibold mb-4">Informations</h4>
             <ul className="space-y-2.5">
-              {footerLinks.service.map((link) => (
+              {footerLinks.informations.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
@@ -137,16 +145,29 @@ export default function Footer() {
 
           {/* Social links */}
           <div className="flex items-center gap-3">
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#B8860B] transition-colors"
-              >
-                <social.icon className="size-4" />
-              </a>
-            ))}
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center hover:bg-[#1ebe57] transition-colors"
+            >
+              <MessageCircle className="size-4" />
+            </a>
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#1877F2] transition-colors"
+            >
+              <Facebook className="size-4" />
+            </a>
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#833AB4] hover:via-[#FD1D1D] hover:to-[#F77737] transition-colors"
+            >
+              <Instagram className="size-4" />
+            </a>
           </div>
         </div>
       </div>
