@@ -42,13 +42,13 @@ export default function Header() {
         <a href="#accueil" className="flex items-center gap-2">
           <Image
             src="/logo-boutique.png"
-            alt="Maison Élégance"
+            alt="Avan Broderie"
             width={40}
             height={40}
             className="rounded-full"
           />
           <span className="text-xl font-bold tracking-tight text-[#5C3D2E]">
-            Maison <span className="text-[#B8860B]">Élégance</span>
+            Avan <span className="text-[#B8860B]">Broderie</span>
           </span>
         </a>
 
@@ -94,12 +94,12 @@ export default function Header() {
                 <SheetTitle className="flex items-center gap-2">
                   <Image
                     src="/logo-boutique.png"
-                    alt="Maison Élégance"
+                    alt="Avan Broderie"
                     width={32}
                     height={32}
                     className="rounded-full"
                   />
-                  <span className="text-[#5C3D2E]">Maison <span className="text-[#B8860B]">Élégance</span></span>
+                  <span className="text-[#5C3D2E]">Avan <span className="text-[#B8860B]">Broderie</span></span>
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-1 px-4 mt-4">

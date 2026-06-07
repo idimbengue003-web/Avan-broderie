@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Maison Élégance - L'Élégance Africaine Moderne",
-  description: "Découvrez nos collections uniques de vêtements et tissus d'exception. Mode africaine moderne, tissus traditionnels et accessoires élégants.",
-  keywords: ["Maison Élégance", "mode africaine", "tissus", "robes", "mode homme", "accessoires", "Côte d'Ivoire", "Afrique"],
-  authors: [{ name: "Maison Élégance" }],
+  title: "Avan Broderie - L'Art de la Broderie Africaine",
+  description: "Découvrez nos collections uniques de vêtements brodés et tissus d'exception. Broderie africaine moderne, tissus traditionnels et accessoires élégants.",
+  keywords: ["Avan Broderie", "broderie africaine", "tissus", "robes brodées", "mode homme", "accessoires", "Côte d'Ivoire", "Afrique"],
+  authors: [{ name: "Avan Broderie" }],
   icons: {
     icon: "/logo-boutique.png",
   },

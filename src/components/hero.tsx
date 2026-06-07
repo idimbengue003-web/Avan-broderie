@@ -12,7 +12,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/hero-banner.png"
-          alt="Collection Maison Élégance"
+          alt="Collection Avan Broderie"
           fill
           className="object-cover"
           priority
@@ -47,9 +47,9 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white mb-4"
           >
-            L&apos;Élégance
+            L&apos;Art de la
             <br />
-            <span className="text-[#D4A843]">Africaine</span> Moderne
+            <span className="text-[#D4A843]">Broderie</span> Africaine
           </motion.h1>
 
           <motion.p
@@ -58,8 +58,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-lg sm:text-xl text-white/80 mb-8 max-w-lg"
           >
-            Découvrez nos collections uniques de vêtements et tissus d&apos;exception, 
-            alliant tradition africaine et modernité élégante.
+            Découvrez nos collections uniques de vêtements brodés et tissus d&apos;exception, 
+            alliant tradition africaine et savoir-faire artisanal.
           </motion.p>
 
           <motion.div

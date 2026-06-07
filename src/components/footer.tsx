@@ -41,17 +41,17 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <Image
                 src="/logo-boutique.png"
-                alt="Maison Élégance"
+                alt="Avan Broderie"
                 width={40}
                 height={40}
                 className="rounded-full"
               />
               <span className="text-xl font-bold text-white">
-                Maison <span className="text-[#D4A843]">Élégance</span>
+                Avan <span className="text-[#D4A843]">Broderie</span>
               </span>
             </div>
             <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-sm">
-              Votre catalogue mode pour l&apos;élégance africaine moderne. Des vêtements et tissus 
+              Votre catalogue de broderie africaine artisanale. Des vêtements brodés et tissus 
               d&apos;exception alliant tradition et contemporanéité. Contactez-nous directement sur WhatsApp pour commander.
             </p>
 
@@ -67,7 +67,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2 text-sm text-white/50">
                 <Mail className="size-4 text-[#D4A843] flex-shrink-0" />
-                <span>contact@maison-elegance.com</span>
+                <span>contact@avan-broderie.com</span>
               </div>
             </div>
 
@@ -140,7 +140,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-white/30">
-            © 2025 Maison Élégance. Tous droits réservés.
+            © 2025 Avan Broderie. Tous droits réservés.
           </p>
 
           {/* Social links */}

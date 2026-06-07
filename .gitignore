@@ -52,3 +52,10 @@ prompt
 server.log
 # Skills directory
 /skills/
+# Z-ai internal files
+.zscripts/
+.z-ai-config
+.claude
+worklog.md
+agent-ctx/
+mini-services/
