@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
+import PlaceholderImage from '@/components/placeholder-image'
 import { ChevronLeft, ChevronRight, Clock, Zap, MessageCircle } from 'lucide-react'
 
 const WHATSAPP_NUMBER = '221771234567'
@@ -14,7 +14,7 @@ const promos = [
     title: 'Soldes d\'Été',
     description: 'Profitez de -30% sur toute la collection de tissus africains. Offre limitée, ne manquez pas cette occasion unique !',
     discount: 30,
-    image: '/collection-tissus.png',
+    placeholder: 'Photo - Promo Tissus',
     tag: 'Limité',
     productName: 'Soldes d\'Été - Tissus Africains',
   },
@@ -23,7 +23,7 @@ const promos = [
     title: 'Nouvelle Collection',
     description: 'Découvrez en avant-première notre nouvelle collection printemps-été. Des pièces exclusives qui allient tradition et modernité.',
     discount: 15,
-    image: '/collection-robes.png',
+    placeholder: 'Photo - Nouvelle Collection',
     tag: 'Exclusif',
     productName: 'Nouvelle Collection Printemps-Été',
   },
@@ -32,7 +32,7 @@ const promos = [
     title: 'Pack Famille',
     description: 'Achetez 3 articles et obtenez -20% sur l\'ensemble du pack. Mode femme, homme et enfant à prix réduit !',
     discount: 20,
-    image: '/collection-enfants.png',
+    placeholder: 'Photo - Pack Famille',
     tag: 'Spécial',
     productName: 'Pack Famille - Promo 3 articles',
   },
@@ -82,14 +82,9 @@ export default function Promotions() {
                 transition={{ duration: 0.5 }}
                 className="grid grid-cols-1 md:grid-cols-2"
               >
-                {/* Image */}
+                {/* Image Placeholder */}
                 <div className="relative aspect-[4/3] md:aspect-auto">
-                  <Image
-                    src={promos[current].image}
-                    alt={promos[current].title}
-                    fill
-                    className="object-cover"
-                  />
+                  <PlaceholderImage label={promos[current].placeholder} className="w-full h-full" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#2C1810]/20 md:bg-none" />
                 </div>
 

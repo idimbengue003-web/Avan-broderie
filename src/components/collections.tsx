@@ -1,38 +1,38 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
+import PlaceholderImage from '@/components/placeholder-image'
 
 const collections = [
   {
     title: 'Tissus Africains',
-    image: '/collection-tissus.png',
+    placeholder: 'Photo - Tissus Africains',
     count: 45,
     href: '#tissus',
   },
   {
     title: 'Robes & Tenues',
-    image: '/collection-robes.png',
+    placeholder: 'Photo - Robes & Tenues',
     count: 62,
     href: '#collections',
   },
   {
     title: 'Mode Homme',
-    image: '/collection-hommes.png',
+    placeholder: 'Photo - Mode Homme',
     count: 38,
     href: '#collections',
   },
   {
     title: 'Mode Enfant',
-    image: '/collection-enfants.png',
+    placeholder: 'Photo - Mode Enfant',
     count: 29,
     href: '#collections',
   },
   {
     title: 'Accessoires',
-    image: '/collection-accessoires.png',
+    placeholder: 'Photo - Accessoires',
     count: 54,
     href: '#collections',
   },
@@ -88,12 +88,8 @@ export default function Collections() {
             >
               <a href={collection.href} className="block">
                 <div className="relative aspect-[4/5] overflow-hidden">
-                  <Image
-                    src={collection.image}
-                    alt={collection.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+                  <PlaceholderImage label={collection.placeholder} className="w-full h-full" />
+
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#2C1810]/90 via-[#2C1810]/30 to-transparent" />
 

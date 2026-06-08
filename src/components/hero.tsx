@@ -1,22 +1,16 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Sparkles } from 'lucide-react'
+import PlaceholderImage from '@/components/placeholder-image'
 
 export default function Hero() {
   return (
     <section id="accueil" className="relative w-full min-h-[85vh] flex items-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image Placeholder */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/hero-banner.png"
-          alt="Collection Avan Broderie"
-          fill
-          className="object-cover"
-          priority
-        />
+        <PlaceholderImage label="Bannière principale" className="w-full h-full" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#2C1810]/85 via-[#2C1810]/60 to-[#2C1810]/40" />
       </div>
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -12,6 +11,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog'
 import { Separator } from '@/components/ui/separator'
+import PlaceholderImage from '@/components/placeholder-image'
 import {
   Eye,
   Star,
@@ -30,7 +30,7 @@ export interface Product {
   price: number
   originalPrice?: number
   badge?: 'Nouveau' | 'Promo'
-  image: string
+  placeholder: string
   description: string
   sizes: string[]
   colors: { name: string; hex: string }[]
@@ -46,7 +46,7 @@ export const products: Product[] = [
     price: 35000,
     originalPrice: 45000,
     badge: 'Promo',
-    image: '/collection-robes.png',
+    placeholder: 'Photo - Robe Ankara',
     description: 'Magnifique robe en tissu Ankara authentique, confectionnée à la main avec des motifs traditionnels. Parfaite pour les occasions spéciales et les événements élégants, elle allie confort et raffinement.',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: [
@@ -63,7 +63,7 @@ export const products: Product[] = [
     name: 'Tissu Wax Premium',
     price: 15000,
     badge: 'Nouveau',
-    image: '/collection-tissus.png',
+    placeholder: 'Photo - Tissu Wax',
     description: 'Tissu Wax de qualité premium importé directement d\'Afrique de l\'Ouest. Motifs vibrants et couleurs éclatantes pour vos créations uniques. 6 yards de pur style africain.',
     sizes: ['6 yards', '12 yards'],
     colors: [
@@ -80,7 +80,7 @@ export const products: Product[] = [
     name: 'Costume Homme Kente',
     price: 85000,
     badge: 'Nouveau',
-    image: '/collection-hommes.png',
+    placeholder: 'Photo - Costume Kente',
     description: 'Costume trois pièces en tissu Kente royal, taillé sur mesure pour un look distingué. Idéal pour les mariages traditionnels et les cérémonies officielles.',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: [
@@ -97,7 +97,7 @@ export const products: Product[] = [
     price: 18000,
     originalPrice: 22000,
     badge: 'Promo',
-    image: '/collection-enfants.png',
+    placeholder: 'Photo - Ensemble Enfant',
     description: 'Adorable ensemble enfant en tissu Ankara coloré. Comprend un haut et un pantalon assortis, parfait pour les fêtes et cérémonies familiales. Confortable et élégant.',
     sizes: ['2-3 ans', '4-5 ans', '6-7 ans', '8-9 ans', '10-11 ans'],
     colors: [
@@ -114,7 +114,7 @@ export const products: Product[] = [
     name: 'Sac à Main Cuir Tressé',
     price: 28000,
     badge: 'Nouveau',
-    image: '/collection-accessoires.png',
+    placeholder: 'Photo - Sac Cuir',
     description: 'Sac à main en cuir véritable tressé à la main par nos artisans locaux. Design unique mêlant tradition et modernité, avec finitions dorées élégantes.',
     sizes: ['Standard'],
     colors: [
@@ -132,7 +132,7 @@ export const products: Product[] = [
     price: 42000,
     originalPrice: 55000,
     badge: 'Promo',
-    image: '/collection-robes.png',
+    placeholder: 'Photo - Boubou',
     description: 'Boubou grand modèle en tissu bazin riche, brodé à la main avec des motifs floraux dorés. Une pièce maîtresse pour les grandes occasions et célébrations.',
     sizes: ['M', 'L', 'XL', 'XXL'],
     colors: [
@@ -149,7 +149,7 @@ export const products: Product[] = [
     name: 'Pagne Kita Traditionnel',
     price: 12000,
     badge: 'Nouveau',
-    image: '/collection-tissus.png',
+    placeholder: 'Photo - Pagne Kita',
     description: 'Pagne Kita authentique tissé à la main, symbole de la royauté et du prestige africain. Chaque pièce est unique avec ses motifs symboliques traditionnels.',
     sizes: ['Standard', 'Grand format'],
     colors: [
@@ -166,7 +166,7 @@ export const products: Product[] = [
     name: 'Chemise Lin Africain',
     price: 22000,
     badge: 'Nouveau',
-    image: '/collection-hommes.png',
+    placeholder: 'Photo - Chemise Lin',
     description: 'Chemise en lin naturel avec impressions africaines subtilement intégrées. Coupe décontractée mais élégante, idéale pour les journées ensoleillées et les soirées décontractées.',
     sizes: ['S', 'M', 'L', 'XL'],
     colors: [
@@ -199,14 +199,9 @@ function ProductCard({ product, onClick }: { product: Product; onClick: () => vo
   return (
     <div className="group">
       <div className="bg-white rounded-2xl overflow-hidden border border-[#E8DCC8] shadow-sm hover:shadow-lg transition-all duration-300">
-        {/* Image */}
+        {/* Image Placeholder */}
         <div className="relative aspect-[3/4] overflow-hidden cursor-pointer" onClick={onClick}>
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <PlaceholderImage label={product.placeholder} className="w-full h-full" />
 
           {/* Badge */}
           {product.badge && (
@@ -313,13 +308,8 @@ function ProductDialog({
       <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto p-0 gap-0 bg-white rounded-2xl">
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Image side */}
-          <div className="relative aspect-square md:aspect-auto md:min-h-[500px] bg-[#F5EDE0]">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-cover rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none"
-            />
+          <div className="relative aspect-square md:aspect-auto md:min-h-[500px]">
+            <PlaceholderImage label={product.placeholder} className="w-full h-full" />
             {product.badge && (
               <div className="absolute top-4 left-4">
                 <Badge

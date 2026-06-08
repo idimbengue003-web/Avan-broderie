@@ -1,9 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Gem, Palette, ShieldCheck } from 'lucide-react'
+import PlaceholderImage from '@/components/placeholder-image'
 
 const features = [
   {
@@ -37,12 +37,7 @@ export default function TissusSpotlight() {
             className="relative"
           >
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-              <Image
-                src="/collection-tissus.png"
-                alt="Tissus Africains Premium"
-                fill
-                className="object-cover"
-              />
+              <PlaceholderImage label="Photo - Tissus Africains" className="w-full h-full" />
             </div>
             {/* Decorative element */}
             <div className="absolute -bottom-4 -right-4 w-32 h-32 rounded-2xl bg-[#B8860B]/10 -z-10" />
