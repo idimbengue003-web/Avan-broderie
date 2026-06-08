@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
   Dialog,
@@ -13,7 +12,6 @@ import {
 import { Separator } from '@/components/ui/separator'
 import PlaceholderImage from '@/components/placeholder-image'
 import {
-  Eye,
   Star,
   Check,
   MessageCircle,
@@ -167,7 +165,7 @@ export const products: Product[] = [
     price: 22000,
     badge: 'Nouveau',
     placeholder: 'Photo - Chemise Lin',
-    description: 'Chemise en lin naturel avec impressions africaines subtilement intégrées. Coupe décontractée mais élégante, idéale pour les journées ensoleillées et les soirées décontractées.',
+    description: 'Chemise en lin naturel avec impressions africaines subtilement intégrées. Coupe décontractée mais élégante, idéale pour les journées ensoleillées.',
     sizes: ['S', 'M', 'L', 'XL'],
     colors: [
       { name: 'Naturel', hex: '#F5F0E1' },
@@ -181,13 +179,13 @@ export const products: Product[] = [
 ]
 
 function getWhatsAppLink(product: Product, selectedSize?: string | null, selectedColor?: string | null) {
-  const sizeText = selectedSize ? `\n📏 Taille : ${selectedSize}` : ''
-  const colorText = selectedColor ? `\n🎨 Couleur : ${selectedColor}` : ''
+  const sizeText = selectedSize ? `\nTaille : ${selectedSize}` : ''
+  const colorText = selectedColor ? `\nCouleur : ${selectedColor}` : ''
   const priceText = product.originalPrice
     ? `${product.price.toLocaleString('fr-FR')} FCFA (au lieu de ${product.originalPrice.toLocaleString('fr-FR')} FCFA)`
     : `${product.price.toLocaleString('fr-FR')} FCFA`
 
-  const message = `Bonjour ! Je suis intéressé(e) par ce produit :\n\n🛍️ ${product.name}\n💰 Prix : ${priceText}${sizeText}${colorText}\n\nPouvez-vous me donner plus d'informations ?`
+  const message = `Bonjour ! Je suis intéressé(e) par ce produit :\n\n${product.name}\nPrix : ${priceText}${sizeText}${colorText}\n\nPouvez-vous me donner plus d'informations ?`
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 }
 
@@ -197,83 +195,69 @@ function ProductCard({ product, onClick }: { product: Product; onClick: () => vo
     : 0
 
   return (
-    <div className="group">
-      <div className="bg-white rounded-2xl overflow-hidden border border-[#E8DCC8] shadow-sm hover:shadow-lg transition-all duration-300">
-        {/* Image Placeholder */}
-        <div className="relative aspect-[3/4] overflow-hidden cursor-pointer" onClick={onClick}>
-          <PlaceholderImage label={product.placeholder} className="w-full h-full" />
-
-          {/* Badge */}
-          {product.badge && (
-            <div className="absolute top-3 left-3">
-              <Badge
-                className={`${
-                  product.badge === 'Promo'
-                    ? 'bg-red-500 hover:bg-red-600 text-white border-0'
-                    : 'bg-[#B8860B] hover:bg-[#8B6508] text-white border-0'
-                } px-3 py-1 text-xs font-semibold`}
-              >
-                {product.badge === 'Promo' ? `-${discount}%` : product.badge}
-              </Badge>
-            </div>
-          )}
-
-          {/* Quick view overlay */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-            <Button
-              onClick={onClick}
-              className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 bg-white/95 hover:bg-white text-[#5C3D2E] shadow-lg rounded-full px-6"
+    <div
+      className="bg-white rounded-xl overflow-hidden border border-[#E8DCC8] shadow-sm active:scale-[0.98] transition-transform"
+      onClick={onClick}
+    >
+      {/* Image */}
+      <div className="relative aspect-square">
+        <PlaceholderImage label={product.placeholder} className="w-full h-full" />
+        {product.badge && (
+          <div className="absolute top-2 left-2">
+            <Badge
+              className={`${
+                product.badge === 'Promo'
+                  ? 'bg-red-500 text-white border-0'
+                  : 'bg-[#B8860B] text-white border-0'
+              } px-2 py-0.5 text-[10px] font-semibold`}
             >
-              <Eye className="size-4 mr-2" />
-              Voir les détails
-            </Button>
+              {product.badge === 'Promo' ? `-${discount}%` : product.badge}
+            </Badge>
           </div>
+        )}
+      </div>
+
+      {/* Info */}
+      <div className="p-3">
+        <h3 className="font-semibold text-[#2C1810] text-sm line-clamp-1 mb-1">
+          {product.name}
+        </h3>
+
+        <div className="flex items-center gap-1 mb-1.5">
+          <div className="flex">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className={`size-2.5 ${
+                  i < Math.floor(product.rating) ? 'text-[#D4A843] fill-[#D4A843]' : 'text-[#E8DCC8]'
+                }`}
+              />
+            ))}
+          </div>
+          <span className="text-[10px] text-[#8B7355]">({product.reviews})</span>
         </div>
 
-        {/* Info */}
-        <div className="p-4">
-          <h3 className="font-semibold text-[#2C1810] mb-1 text-sm sm:text-base line-clamp-1">
-            {product.name}
-          </h3>
-
-          {/* Rating */}
-          <div className="flex items-center gap-1 mb-2">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`size-3 ${
-                    i < Math.floor(product.rating) ? 'text-[#D4A843] fill-[#D4A843]' : 'text-[#E8DCC8]'
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="text-xs text-[#8B7355]">({product.reviews})</span>
-          </div>
-
-          {/* Price */}
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-lg font-bold text-[#B8860B]">
-              {product.price.toLocaleString('fr-FR')} FCFA
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-base font-bold text-[#B8860B]">
+            {product.price.toLocaleString('fr-FR')} F
+          </span>
+          {product.originalPrice && (
+            <span className="text-xs text-[#8B7355] line-through">
+              {product.originalPrice.toLocaleString('fr-FR')} F
             </span>
-            {product.originalPrice && (
-              <span className="text-sm text-[#8B7355] line-through">
-                {product.originalPrice.toLocaleString('fr-FR')} FCFA
-              </span>
-            )}
-          </div>
-
-          {/* WhatsApp Button on card */}
-          <a
-            href={getWhatsAppLink(product)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold py-2.5 rounded-xl text-sm transition-colors"
-          >
-            <MessageCircle className="size-4" />
-            Commander
-          </a>
+          )}
         </div>
+
+        <a
+          href={getWhatsAppLink(product)}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="flex items-center justify-center gap-1.5 w-full bg-[#25D366] active:bg-[#1ebe57] text-white font-semibold py-2 rounded-lg text-xs transition-colors"
+        >
+          <MessageCircle className="size-3.5" />
+          Commander
+        </a>
       </div>
     </div>
   )
@@ -297,165 +281,150 @@ function ProductDialog({
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0
 
-  const handleClose = () => {
-    setSelectedSize(null)
-    setSelectedColor(null)
-    onOpenChange(false)
-  }
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto p-0 gap-0 bg-white rounded-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {/* Image side */}
-          <div className="relative aspect-square md:aspect-auto md:min-h-[500px]">
-            <PlaceholderImage label={product.placeholder} className="w-full h-full" />
-            {product.badge && (
-              <div className="absolute top-4 left-4">
-                <Badge
-                  className={`${
-                    product.badge === 'Promo'
-                      ? 'bg-red-500 hover:bg-red-600 text-white border-0'
-                      : 'bg-[#B8860B] hover:bg-[#8B6508] text-white border-0'
-                  } px-3 py-1 text-sm font-semibold`}
-                >
-                  {product.badge === 'Promo' ? `-${discount}%` : product.badge}
-                </Badge>
-              </div>
+      <DialogContent className="max-w-full sm:max-w-lg max-h-[85vh] overflow-y-auto p-0 gap-0 bg-white rounded-t-2xl sm:rounded-2xl">
+        {/* Image */}
+        <div className="relative aspect-square">
+          <PlaceholderImage label={product.placeholder} className="w-full h-full" />
+          {product.badge && (
+            <div className="absolute top-3 left-3">
+              <Badge
+                className={`${
+                  product.badge === 'Promo'
+                    ? 'bg-red-500 text-white border-0'
+                    : 'bg-[#B8860B] text-white border-0'
+                } px-2.5 py-0.5 text-xs font-semibold`}
+              >
+                {product.badge === 'Promo' ? `-${discount}%` : product.badge}
+              </Badge>
+            </div>
+          )}
+        </div>
+
+        {/* Details */}
+        <div className="p-4">
+          <DialogHeader className="p-0 mb-3">
+            <DialogTitle className="text-lg font-bold text-[#2C1810] text-left">
+              {product.name}
+            </DialogTitle>
+            <DialogDescription className="sr-only">
+              Détails du produit {product.name}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex items-center gap-2 mb-2">
+            <div className="flex">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`size-3.5 ${
+                    i < Math.floor(product.rating) ? 'text-[#D4A843] fill-[#D4A843]' : 'text-[#E8DCC8]'
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="text-xs text-[#8B7355]">
+              {product.rating} ({product.reviews} avis)
+            </span>
+          </div>
+
+          <div className="flex items-baseline gap-2 mb-2">
+            <span className="text-xl font-bold text-[#B8860B]">
+              {product.price.toLocaleString('fr-FR')} FCFA
+            </span>
+            {product.originalPrice && (
+              <span className="text-sm text-[#8B7355] line-through">
+                {product.originalPrice.toLocaleString('fr-FR')} F
+              </span>
             )}
           </div>
 
-          {/* Details side */}
-          <div className="p-6 sm:p-8 flex flex-col">
-            <DialogHeader className="p-0 mb-4">
-              <DialogTitle className="text-xl sm:text-2xl font-bold text-[#2C1810] text-left">
-                {product.name}
-              </DialogTitle>
-              <DialogDescription className="sr-only">
-                Détails du produit {product.name}
-              </DialogDescription>
-            </DialogHeader>
+          <div className="flex items-center gap-1.5 mb-3">
+            <div className={`size-1.5 rounded-full ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`} />
+            <span className={`text-xs font-medium ${product.inStock ? 'text-green-700' : 'text-red-700'}`}>
+              {product.inStock ? 'Disponible' : 'Rupture de stock'}
+            </span>
+          </div>
 
-            {/* Rating */}
-            <div className="flex items-center gap-2 mb-4">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`size-4 ${
-                      i < Math.floor(product.rating) ? 'text-[#D4A843] fill-[#D4A843]' : 'text-[#E8DCC8]'
-                    }`}
-                  />
-                ))}
-              </div>
-              <span className="text-sm text-[#8B7355]">
-                {product.rating} ({product.reviews} avis)
-              </span>
+          <Separator className="bg-[#E8DCC8] mb-3" />
+
+          <p className="text-xs text-[#5C3D2E] leading-relaxed mb-4">
+            {product.description}
+          </p>
+
+          {/* Size Selector */}
+          <div className="mb-4">
+            <label className="text-xs font-semibold text-[#2C1810] mb-1.5 block">
+              Taille
+            </label>
+            <div className="flex flex-wrap gap-1.5">
+              {product.sizes.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`px-2.5 py-1 rounded-lg border text-xs font-medium transition-all ${
+                    selectedSize === size
+                      ? 'border-[#B8860B] bg-[#B8860B] text-white'
+                      : 'border-[#E8DCC8] text-[#5C3D2E] active:border-[#B8860B] active:bg-[#F5EDE0]'
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
             </div>
+          </div>
 
-            {/* Price */}
-            <div className="flex items-baseline gap-3 mb-4">
-              <span className="text-2xl sm:text-3xl font-bold text-[#B8860B]">
-                {product.price.toLocaleString('fr-FR')} FCFA
-              </span>
-              {product.originalPrice && (
-                <span className="text-lg text-[#8B7355] line-through">
-                  {product.originalPrice.toLocaleString('fr-FR')} FCFA
-                </span>
-              )}
+          {/* Color Selector */}
+          <div className="mb-4">
+            <label className="text-xs font-semibold text-[#2C1810] mb-1.5 block">
+              Couleur : <span className="font-normal text-[#8B7355]">{selectedColor || 'Choisir'}</span>
+            </label>
+            <div className="flex gap-2">
+              {product.colors.map((color) => (
+                <button
+                  key={color.name}
+                  onClick={() => setSelectedColor(color.name)}
+                  className={`relative w-8 h-8 rounded-full border-2 transition-all ${
+                    selectedColor === color.name
+                      ? 'border-[#B8860B] scale-110'
+                      : 'border-[#E8DCC8]'
+                  }`}
+                  style={{ backgroundColor: color.hex }}
+                  title={color.name}
+                >
+                  {selectedColor === color.name && (
+                    <Check className="size-3.5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white drop-shadow-md" />
+                  )}
+                </button>
+              ))}
             </div>
+          </div>
 
-            {/* Stock status */}
-            <div className="flex items-center gap-2 mb-4">
-              <div className={`size-2 rounded-full ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`} />
-              <span className={`text-sm font-medium ${product.inStock ? 'text-green-700' : 'text-red-700'}`}>
-                {product.inStock ? 'Disponible' : 'Rupture de stock'}
-              </span>
+          {/* WhatsApp CTA */}
+          <a
+            href={getWhatsAppLink(product, selectedSize, selectedColor)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full bg-[#25D366] active:bg-[#1ebe57] text-white font-semibold h-11 text-sm rounded-xl transition-colors shadow-md"
+          >
+            <MessageCircle className="size-4" />
+            Commander via WhatsApp
+          </a>
+
+          {/* Trust badges */}
+          <div className="grid grid-cols-3 gap-2 mt-4">
+            <div className="flex flex-col items-center text-center gap-0.5">
+              <Truck className="size-3.5 text-[#B8860B]" />
+              <span className="text-[9px] text-[#8B7355]">Livraison rapide</span>
             </div>
-
-            <Separator className="bg-[#E8DCC8] mb-4" />
-
-            {/* Description */}
-            <p className="text-sm text-[#5C3D2E] leading-relaxed mb-5">
-              {product.description}
-            </p>
-
-            {/* Size Selector */}
-            <div className="mb-5">
-              <label className="text-sm font-semibold text-[#2C1810] mb-2 block">
-                Taille
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {product.sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`px-3 py-1.5 rounded-lg border text-sm font-medium transition-all ${
-                      selectedSize === size
-                        ? 'border-[#B8860B] bg-[#B8860B] text-white'
-                        : 'border-[#E8DCC8] text-[#5C3D2E] hover:border-[#B8860B] hover:bg-[#F5EDE0]'
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
+            <div className="flex flex-col items-center text-center gap-0.5">
+              <Shield className="size-3.5 text-[#B8860B]" />
+              <span className="text-[9px] text-[#8B7355]">Paiement sécurisé</span>
             </div>
-
-            {/* Color Selector */}
-            <div className="mb-6">
-              <label className="text-sm font-semibold text-[#2C1810] mb-2 block">
-                Couleur : <span className="font-normal text-[#8B7355]">{selectedColor || 'Choisir'}</span>
-              </label>
-              <div className="flex gap-3">
-                {product.colors.map((color) => (
-                  <button
-                    key={color.name}
-                    onClick={() => setSelectedColor(color.name)}
-                    className={`relative w-9 h-9 rounded-full border-2 transition-all ${
-                      selectedColor === color.name
-                        ? 'border-[#B8860B] scale-110'
-                        : 'border-[#E8DCC8] hover:border-[#D4A843]'
-                    }`}
-                    style={{ backgroundColor: color.hex }}
-                    title={color.name}
-                  >
-                    {selectedColor === color.name && (
-                      <Check className="size-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white drop-shadow-md" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* WhatsApp CTA */}
-            <a
-              href={getWhatsAppLink(product, selectedSize, selectedColor)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold h-12 text-base rounded-xl transition-colors shadow-md"
-            >
-              <MessageCircle className="size-5" />
-              Commander via WhatsApp
-            </a>
-            <p className="text-center text-xs text-[#8B7355] mt-2">
-              Choisissez votre taille et couleur, puis contactez-nous sur WhatsApp
-            </p>
-
-            {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-2 mt-5">
-              <div className="flex flex-col items-center text-center gap-1 p-2">
-                <Truck className="size-4 text-[#B8860B]" />
-                <span className="text-[10px] text-[#8B7355]">Livraison rapide</span>
-              </div>
-              <div className="flex flex-col items-center text-center gap-1 p-2">
-                <Shield className="size-4 text-[#B8860B]" />
-                <span className="text-[10px] text-[#8B7355]">Paiement sécurisé</span>
-              </div>
-              <div className="flex flex-col items-center text-center gap-1 p-2">
-                <HeadphonesIcon className="size-4 text-[#B8860B]" />
-                <span className="text-[10px] text-[#8B7355]">Support 24/7</span>
-              </div>
+            <div className="flex flex-col items-center text-center gap-0.5">
+              <HeadphonesIcon className="size-3.5 text-[#B8860B]" />
+              <span className="text-[9px] text-[#8B7355]">Support 24/7</span>
             </div>
           </div>
         </div>
@@ -474,32 +443,27 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section className="py-16 sm:py-20 bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#2C1810] mb-3">
-            Produits <span className="text-[#B8860B]">Vedettes</span>
-          </h2>
-          <p className="text-[#8B7355] max-w-xl mx-auto">
-            Nos pièces les plus prisées, sélectionnées pour leur qualité et leur style unique. Contactez-nous directement sur WhatsApp pour commander.
-          </p>
-          <div className="w-20 h-1 bg-[#B8860B] rounded-full mx-auto mt-4" />
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onClick={() => handleProductClick(product)}
-            />
-          ))}
-        </div>
+    <section className="py-6 bg-white">
+      <div className="px-4 mb-4">
+        <h2 className="text-xl font-bold text-[#2C1810]">
+          Produits <span className="text-[#B8860B]">Vedettes</span>
+        </h2>
+        <p className="text-xs text-[#8B7355] mt-1">
+          Contactez-nous sur WhatsApp pour commander
+        </p>
       </div>
 
-      {/* Product Dialog */}
+      {/* Grid 2 columns on mobile */}
+      <div className="grid grid-cols-2 gap-3 px-4">
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            onClick={() => handleProductClick(product)}
+          />
+        ))}
+      </div>
+
       <ProductDialog
         product={selectedProduct}
         open={dialogOpen}

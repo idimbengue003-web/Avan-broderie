@@ -148,20 +148,53 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* Hide scrollbar for horizontal scroll on mobile */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--cream);
+/* Safe area padding for bottom nav (notch phones) */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--gold-light);
-  border-radius: 4px;
+/* Disable text selection on touch elements for native feel */
+a, button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
+/* Prevent overscroll bounce on iOS */
+html {
+  overscroll-behavior: none;
+}
+
+/* Custom scrollbar - desktop only */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--cream);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--gold-light);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+  }
+}
+
+/* Mobile viewport fix */
+html, body {
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
 }

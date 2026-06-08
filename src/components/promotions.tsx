@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import PlaceholderImage from '@/components/placeholder-image'
 import { ChevronLeft, ChevronRight, Clock, Zap, MessageCircle } from 'lucide-react'
@@ -12,7 +11,7 @@ const promos = [
   {
     id: 1,
     title: 'Soldes d\'Été',
-    description: 'Profitez de -30% sur toute la collection de tissus africains. Offre limitée, ne manquez pas cette occasion unique !',
+    description: 'Profitez de -30% sur toute la collection de tissus africains. Offre limitée !',
     discount: 30,
     placeholder: 'Photo - Promo Tissus',
     tag: 'Limité',
@@ -21,7 +20,7 @@ const promos = [
   {
     id: 2,
     title: 'Nouvelle Collection',
-    description: 'Découvrez en avant-première notre nouvelle collection printemps-été. Des pièces exclusives qui allient tradition et modernité.',
+    description: 'Découvrez notre nouvelle collection printemps-été. Des pièces exclusives.',
     discount: 15,
     placeholder: 'Photo - Nouvelle Collection',
     tag: 'Exclusif',
@@ -30,7 +29,7 @@ const promos = [
   {
     id: 3,
     title: 'Pack Famille',
-    description: 'Achetez 3 articles et obtenez -20% sur l\'ensemble du pack. Mode femme, homme et enfant à prix réduit !',
+    description: 'Achetez 3 articles et obtenez -20% sur l\'ensemble du pack !',
     discount: 20,
     placeholder: 'Photo - Pack Famille',
     tag: 'Spécial',
@@ -57,98 +56,80 @@ export default function Promotions() {
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Bonjour ! Je suis intéressé(e) par l'offre : ${promos[current].productName}. Pouvez-vous m'en dire plus ?`)}`
 
   return (
-    <section id="promotions" className="py-16 sm:py-20 bg-[#F5EDE0]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#2C1810] mb-3">
-            Annonces & <span className="text-[#B8860B]">Promotions</span>
-          </h2>
-          <p className="text-[#8B7355] max-w-xl mx-auto">
-            Des offres exceptionnelles sur nos plus belles pièces. Contactez-nous sur WhatsApp pour en profiter !
-          </p>
-          <div className="w-20 h-1 bg-[#B8860B] rounded-full mx-auto mt-4" />
-        </div>
+    <section id="promotions" className="py-6 bg-[#F5EDE0]">
+      <div className="px-4 mb-4">
+        <h2 className="text-xl font-bold text-[#2C1810]">
+          Annonces & <span className="text-[#B8860B]">Promos</span>
+        </h2>
+      </div>
 
-        {/* Carousel */}
-        <div className="relative">
-          <div className="overflow-hidden rounded-2xl">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 md:grid-cols-2"
-              >
-                {/* Image Placeholder */}
-                <div className="relative aspect-[4/3] md:aspect-auto">
-                  <PlaceholderImage label={promos[current].placeholder} className="w-full h-full" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#2C1810]/20 md:bg-none" />
-                </div>
-
-                {/* Content */}
-                <div className="bg-white p-6 sm:p-10 flex flex-col justify-center">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Badge className="bg-red-500 text-white border-0 px-3 py-1">
-                      <Zap className="size-3 mr-1" />
-                      -{promos[current].discount}%
-                    </Badge>
-                    <Badge variant="outline" className="border-[#B8860B] text-[#B8860B]">
-                      <Clock className="size-3 mr-1" />
-                      {promos[current].tag}
-                    </Badge>
-                  </div>
-
-                  <h3 className="text-2xl sm:text-3xl font-bold text-[#2C1810] mb-3">
-                    {promos[current].title}
-                  </h3>
-
-                  <p className="text-[#8B7355] leading-relaxed mb-6">
-                    {promos[current].description}
-                  </p>
-
-                  <a
-                    href={whatsappLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 w-fit bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold px-8 h-12 rounded-xl transition-colors shadow-md"
-                  >
-                    <MessageCircle className="size-5" />
-                    En profiter via WhatsApp
-                  </a>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+      {/* Full-width card style */}
+      <div className="px-4">
+        <div className="relative rounded-xl overflow-hidden">
+          {/* Image */}
+          <div className="relative aspect-[16/9]">
+            <PlaceholderImage label={promos[current].placeholder} className="w-full h-full" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#2C1810]/80 to-transparent" />
           </div>
 
-          {/* Navigation arrows */}
+          {/* Content overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-4">
+            <div className="flex items-center gap-1.5 mb-2">
+              <Badge className="bg-red-500 text-white border-0 px-2 py-0.5 text-[10px]">
+                <Zap className="size-2.5 mr-0.5" />
+                -{promos[current].discount}%
+              </Badge>
+              <Badge variant="outline" className="border-white/30 text-white text-[10px] px-2 py-0.5">
+                <Clock className="size-2.5 mr-0.5" />
+                {promos[current].tag}
+              </Badge>
+            </div>
+
+            <h3 className="text-lg font-bold text-white mb-1">
+              {promos[current].title}
+            </h3>
+
+            <p className="text-xs text-white/70 mb-3 line-clamp-2">
+              {promos[current].description}
+            </p>
+
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-1.5 bg-[#25D366] active:bg-[#1ebe57] text-white font-semibold px-4 h-9 rounded-lg text-xs transition-colors"
+            >
+              <MessageCircle className="size-3.5" />
+              En profiter via WhatsApp
+            </a>
+          </div>
+
+          {/* Navigation */}
           <button
             onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:bg-white transition-colors z-10"
+            className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/70 backdrop-blur-sm shadow-sm active:bg-white transition-colors z-10"
           >
-            <ChevronLeft className="size-5 text-[#5C3D2E]" />
+            <ChevronLeft className="size-4 text-[#5C3D2E]" />
           </button>
           <button
             onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:bg-white transition-colors z-10"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/70 backdrop-blur-sm shadow-sm active:bg-white transition-colors z-10"
           >
-            <ChevronRight className="size-5 text-[#5C3D2E]" />
+            <ChevronRight className="size-4 text-[#5C3D2E]" />
           </button>
+        </div>
 
-          {/* Dots */}
-          <div className="flex items-center justify-center gap-2 mt-6">
-            {promos.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrent(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === current ? 'w-8 bg-[#B8860B]' : 'w-2 bg-[#E8DCC8]'
-                }`}
-              />
-            ))}
-          </div>
+        {/* Dots */}
+        <div className="flex items-center justify-center gap-1.5 mt-3">
+          {promos.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrent(index)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === current ? 'w-6 bg-[#B8860B]' : 'w-1.5 bg-[#E8DCC8]'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

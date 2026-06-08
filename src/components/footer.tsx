@@ -6,167 +6,116 @@ import { Facebook, Instagram, MapPin, Phone, Mail, MessageCircle } from 'lucide-
 
 const WHATSAPP_NUMBER = '221771234567'
 
-const footerLinks = {
-  collections: [
-    { label: 'Tissus Africains', href: '#tissus' },
-    { label: 'Robes & Tenues', href: '#collections' },
-    { label: 'Mode Homme', href: '#collections' },
-    { label: 'Mode Enfant', href: '#collections' },
-    { label: 'Accessoires', href: '#collections' },
-  ],
-  informations: [
-    { label: 'Guide des tailles', href: '#' },
-    { label: 'Entretien des tissus', href: '#' },
-    { label: 'Livraison', href: '#' },
-    { label: 'FAQ', href: '#' },
-    { label: 'Conditions générales', href: '#' },
-  ],
-  about: [
-    { label: 'Notre histoire', href: '#' },
-    { label: 'Nos artisans', href: '#' },
-    { label: 'Engagement éthique', href: '#' },
-    { label: 'Presse', href: '#' },
-  ],
-}
-
 export default function Footer() {
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Bonjour, je souhaite avoir des informations sur vos produits.')}`
 
   return (
-    <footer id="contact" className="bg-[#1A1209] text-white/80">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-          {/* Brand */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <Image
-                src="/logo-boutique.png"
-                alt="Avan Broderie"
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
-              <span className="text-xl font-bold text-white">
-                Avan <span className="text-[#D4A843]">Broderie</span>
-              </span>
-            </div>
-            <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-sm">
-              Votre catalogue de broderie africaine artisanale. Des vêtements brodés et tissus 
-              d&apos;exception alliant tradition et contemporanéité. Contactez-nous directement sur WhatsApp pour commander.
-            </p>
+    <footer id="contact" className="bg-[#1A1209] text-white/80 pb-20">
+      <div className="px-4 pt-8 pb-6">
+        {/* Brand */}
+        <div className="flex items-center gap-2 mb-3">
+          <Image
+            src="/logo-boutique.png"
+            alt="Avan Broderie"
+            width={28}
+            height={28}
+            className="rounded-full"
+          />
+          <span className="text-base font-bold text-white">
+            Avan <span className="text-[#D4A843]">Broderie</span>
+          </span>
+        </div>
+        <p className="text-white/40 text-xs leading-relaxed mb-4">
+          Votre catalogue de broderie africaine artisanale. Contactez-nous sur WhatsApp pour commander.
+        </p>
 
-            {/* Contact info */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-white/50">
-                <MapPin className="size-4 text-[#D4A843] flex-shrink-0" />
-                <span>HLM, Dakar, Sénégal</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-white/50">
-                <Phone className="size-4 text-[#D4A843] flex-shrink-0" />
-                <span>+221 77 123 45 67</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-white/50">
-                <Mail className="size-4 text-[#D4A843] flex-shrink-0" />
-                <span>contact@avan-broderie.com</span>
-              </div>
-            </div>
-
-            {/* WhatsApp CTA in footer */}
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors"
-            >
-              <MessageCircle className="size-4" />
-              Nous contacter sur WhatsApp
-            </a>
+        {/* Contact info */}
+        <div className="space-y-1.5 mb-4">
+          <div className="flex items-center gap-2 text-xs text-white/40">
+            <MapPin className="size-3 text-[#D4A843] flex-shrink-0" />
+            <span>HLM, Dakar, Sénégal</span>
           </div>
+          <div className="flex items-center gap-2 text-xs text-white/40">
+            <Phone className="size-3 text-[#D4A843] flex-shrink-0" />
+            <span>+221 77 123 45 67</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-white/40">
+            <Mail className="size-3 text-[#D4A843] flex-shrink-0" />
+            <span>contact@avan-broderie.com</span>
+          </div>
+        </div>
 
-          {/* Collections */}
+        {/* WhatsApp CTA */}
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 bg-[#25D366] active:bg-[#1ebe57] text-white font-semibold px-4 py-2 rounded-lg text-xs transition-colors mb-6"
+        >
+          <MessageCircle className="size-3.5" />
+          Nous contacter sur WhatsApp
+        </a>
+
+        <Separator className="bg-white/10 mb-5" />
+
+        {/* Quick links */}
+        <div className="grid grid-cols-3 gap-4 mb-5">
           <div>
-            <h4 className="text-white font-semibold mb-4">Collections</h4>
-            <ul className="space-y-2.5">
-              {footerLinks.collections.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-white/50 hover:text-[#D4A843] transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+            <h4 className="text-white text-xs font-semibold mb-2">Collections</h4>
+            <ul className="space-y-1">
+              <li><a href="#tissus" className="text-[10px] text-white/40 active:text-[#D4A843]">Tissus</a></li>
+              <li><a href="#collections" className="text-[10px] text-white/40 active:text-[#D4A843]">Robes</a></li>
+              <li><a href="#collections" className="text-[10px] text-white/40 active:text-[#D4A843]">Homme</a></li>
             </ul>
           </div>
-
-          {/* Informations */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Informations</h4>
-            <ul className="space-y-2.5">
-              {footerLinks.informations.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-white/50 hover:text-[#D4A843] transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+            <h4 className="text-white text-xs font-semibold mb-2">Infos</h4>
+            <ul className="space-y-1">
+              <li><a href="#" className="text-[10px] text-white/40 active:text-[#D4A843]">Tailles</a></li>
+              <li><a href="#" className="text-[10px] text-white/40 active:text-[#D4A843]">Livraison</a></li>
+              <li><a href="#" className="text-[10px] text-white/40 active:text-[#D4A843]">FAQ</a></li>
             </ul>
           </div>
-
-          {/* À Propos */}
           <div>
-            <h4 className="text-white font-semibold mb-4">À Propos</h4>
-            <ul className="space-y-2.5">
-              {footerLinks.about.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-white/50 hover:text-[#D4A843] transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+            <h4 className="text-white text-xs font-semibold mb-2">À propos</h4>
+            <ul className="space-y-1">
+              <li><a href="#" className="text-[10px] text-white/40 active:text-[#D4A843]">Histoire</a></li>
+              <li><a href="#" className="text-[10px] text-white/40 active:text-[#D4A843]">Artisans</a></li>
+              <li><a href="#" className="text-[10px] text-white/40 active:text-[#D4A843]">Presse</a></li>
             </ul>
           </div>
         </div>
 
-        <Separator className="bg-white/10 mb-8" />
+        <Separator className="bg-white/10 mb-4" />
 
-        {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-white/30">
-            © 2025 Avan Broderie. Tous droits réservés.
+        {/* Bottom */}
+        <div className="flex items-center justify-between">
+          <p className="text-[10px] text-white/20">
+            © 2025 Avan Broderie
           </p>
-
-          {/* Social links */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center hover:bg-[#1ebe57] transition-colors"
+              className="w-7 h-7 rounded-full bg-[#25D366] flex items-center justify-center active:opacity-80"
             >
-              <MessageCircle className="size-4" />
+              <MessageCircle className="size-3" />
             </a>
             <a
               href="#"
               aria-label="Facebook"
-              className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#1877F2] transition-colors"
+              className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center active:bg-[#1877F2]"
             >
-              <Facebook className="size-4" />
+              <Facebook className="size-3" />
             </a>
             <a
               href="#"
               aria-label="Instagram"
-              className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#833AB4] hover:via-[#FD1D1D] hover:to-[#F77737] transition-colors"
+              className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center"
             >
-              <Instagram className="size-4" />
+              <Instagram className="size-3" />
             </a>
           </div>
         </div>
